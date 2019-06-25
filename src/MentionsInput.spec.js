@@ -1,9 +1,9 @@
+import { mount } from 'enzyme'
 import expect, { createSpy } from 'expect'
 import React from 'react'
-import { mount } from 'enzyme'
 
-import { MentionsInput, Mention } from './index'
 import { makeTriggerRegex } from './MentionsInput'
+import { Mention, MentionsInput } from './index'
 
 const data = [
   { id: 'first', value: 'First entry' },
@@ -23,10 +23,7 @@ describe('MentionsInput', () => {
     wrapper = mount(
       <MentionsInput value="">
         <Mention trigger="@" data={data} />
-      </MentionsInput>,
-      {
-        attachTo: host,
-      }
+      </MentionsInput>
     )
   })
 
@@ -59,10 +56,7 @@ describe('MentionsInput', () => {
           trigger="@"
           data={[{ id: 'a', value: 'A' }, { id: 'b', value: 'B' }]}
         />
-      </MentionsInput>,
-      {
-        attachTo: host,
-      }
+      </MentionsInput>
     )
 
     wrapper.find('textarea').simulate('focus')
@@ -95,8 +89,10 @@ describe('MentionsInput', () => {
         attachTo: host,
       }
     )
+
     wrapper.find('textarea').getDOMNode().scrollTop = 23
     wrapper.find('textarea').simulate('scroll', { deltaY: 23 })
+
     expect(wrapper.find('.mi__highlighter').getDOMNode().scrollTop).toBe(23)
   })
 
@@ -112,10 +108,7 @@ describe('MentionsInput', () => {
         >
           <p>menu goes here</p>
         </div>
-      </div>,
-      {
-        attachTo: host,
-      }
+      </div>
     )
     const wrapper = mount(
       <MentionsInput
@@ -124,10 +117,7 @@ describe('MentionsInput', () => {
         suggestionsPortalHost={portalNode}
       >
         <Mention trigger="@" data={data} />
-      </MentionsInput>,
-      {
-        attachTo: rootWrapper.find('#root').getDOMNode(),
-      }
+      </MentionsInput>
     )
     // focus & select to show suggestions
     wrapper.find('textarea').simulate('focus')
@@ -154,10 +144,7 @@ describe('MentionsInput', () => {
             return mention ? mention.display : `:${id}`
           }}
         />
-      </MentionsInput>,
-      {
-        attachTo: host,
-      }
+      </MentionsInput>
     )
     wrapper.find('textarea').simulate('focus')
     expect(wrapper.find('textarea').getDOMNode().value).toEqual(
@@ -170,10 +157,7 @@ describe('MentionsInput', () => {
     const wrapper = mount(
       <MentionsInput value="test" inputRef={inputRef}>
         <Mention trigger="@" data={data} />
-      </MentionsInput>,
-      {
-        attachTo: host,
-      }
+      </MentionsInput>
     )
     const el = wrapper.find('textarea').getDOMNode()
     expect(inputRef.current).toBeTruthy()
@@ -185,10 +169,7 @@ describe('MentionsInput', () => {
     const wrapper = mount(
       <MentionsInput value="test" inputRef={inputRef}>
         <Mention trigger="@" data={data} />
-      </MentionsInput>,
-      {
-        attachTo: host,
-      }
+      </MentionsInput>
     )
     const el = wrapper.find('textarea').getDOMNode()
     expect(inputRef).toHaveBeenCalledWith(el)
